@@ -3,23 +3,28 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { Container } from '@mui/material';
 import { Navbar } from './components/Navbar';
+import Definitions from './Definitions/Definitions';
 
 export const App = () => {
-  const [meaning, setMeaning] = useState([]);
+  const [meanings, setMeanings] = useState([]);
   const [category, setCategory] = useState('en');
-  const [word, setWord] = useState([]);
-  const API_ENDPOINT = `https://api.dictionaryapi.dev/api/v2/entries/${category}/${word}`;
+  const [word, setWord] = useState('');
 
   const dictionaryApi = async () => {
     try {
-      const data = await axios.get(API_ENDPOINT);
-      console.log(data);
+      if (word) {
+        const API_ENDPOINT = `https://api.dictionaryapi.dev/api/v2/entries/${category}/${word}`;
+        const {data} = await axios.get(API_ENDPOINT);
+        console.log(data);
 
-      setMeaning(data.data);
+        setMeanings(data);
+      } else {
+        setMeanings([]);
+      }
     } catch (error) {
       console.log(error);
+      setMeanings([]);
     }
-    console.log(meaning);
   };
 
   useEffect(() => {
@@ -33,12 +38,19 @@ export const App = () => {
           maxWidth='md'
           style={{
             height: '100vh',
-
+            justifyContent: 'space-evenly',
             display: 'flex',
             flexDirection: 'column',
           }}
         >
-          <Navbar category={category} setCategory={setCategory} word={word} setWord={setWord} />
+          <Navbar
+            category={category}
+            setCategory={setCategory}
+            word={word}
+            setWord={setWord}
+            setMeanings={setMeanings}
+          />
+          {meanings && <Definitions word={word} meanings={meanings} category={category} />}
         </Container>
       </div>
     </>

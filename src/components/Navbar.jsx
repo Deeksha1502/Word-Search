@@ -1,8 +1,17 @@
-import { createTheme, CssBaseline, MenuItem, TextField, ThemeProvider } from '@mui/material';
+import {
+  createTheme,
+  CssBaseline,
+  debounce,
+  MenuItem,
+  TextField,
+  ThemeProvider,
+} from '@mui/material';
 import './Navbar.css';
 import categories from '../data/Category';
+import PropTypes from 'prop-types';
 
-export const Navbar = ({ category, setCategory, word, setWord }) => {
+
+export const Navbar = ({ category, setCategory, word, setWord, setMeanings }) => {
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
@@ -12,7 +21,12 @@ export const Navbar = ({ category, setCategory, word, setWord }) => {
   const handleChange = (language) => {
     setCategory(language);
     setWord('');
+    setMeanings([]);
   };
+
+  const handleInput = debounce((text) => {
+    setWord(text);
+  }, 500);
 
   return (
     <div className='navbar'>
@@ -25,7 +39,7 @@ export const Navbar = ({ category, setCategory, word, setWord }) => {
             label='Search a word'
             id='standard-basic'
             value={word}
-            onChange={(e) => setWord(e.target.value)}
+            onChange={(e) => handleInput(e.target.value)}
           ></TextField>
           {'   '}
 
@@ -47,4 +61,11 @@ export const Navbar = ({ category, setCategory, word, setWord }) => {
       </div>
     </div>
   );
+};
+Navbar.propTypes = {
+  category: PropTypes.string.isRequired,
+  setCategory: PropTypes.func.isRequired,
+  word: PropTypes.string.isRequired,
+  setWord: PropTypes.func.isRequired,
+  setMeanings: PropTypes.func.isRequired,
 };
