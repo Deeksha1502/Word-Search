@@ -1,32 +1,39 @@
-import {
-  createTheme,
-  CssBaseline,
-  debounce,
-  MenuItem,
-  TextField,
-  ThemeProvider,
-} from '@mui/material';
+import { createTheme, CssBaseline, debounce, TextField, ThemeProvider } from '@mui/material';
 import './Navbar.css';
-import categories from '../data/Category';
-import PropTypes from 'prop-types';
 
+import { useCallback, useState } from 'react';
+import Select from '@mui/material/Select';
 
-export const Navbar = ({ category, setCategory, word, setWord, setMeanings }) => {
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+
+export const Navbar = ({ word, setWord }) => {
+  const [language, setLanguage] = useState('English');
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
     },
   });
 
-  const handleChange = (language) => {
-    setCategory(language);
-    setWord('');
-    setMeanings([]);
+  
+
+  const debouncedSetWord = useCallback(
+    debounce((text) => {
+      setWord(text);
+    }, 500),
+    []
+  );
+
+  const handleInput = (e) => {
+    const text = e.target.value;
+    e.target.value = text;
+    debouncedSetWord(text);
   };
 
-  const handleInput = debounce((text) => {
-    setWord(text);
-  }, 500);
+  const handleMenuChange = () =>{
+    setLanguage(language)
+  }
 
   return (
     <div className='navbar'>
@@ -38,34 +45,24 @@ export const Navbar = ({ category, setCategory, word, setWord, setMeanings }) =>
             className='search'
             label='Search a word'
             id='standard-basic'
-            value={word}
-            onChange={(e) => handleInput(e.target.value)}
+            onChange={handleInput}
           ></TextField>
           {'   '}
 
-          <TextField
-            className='select'
-            select
-            label='language'
-            value={category}
-            onChange={(e) => handleChange(e.target.value)}
-            helperText='Please select the language'
-          >
-            {categories.map((option) => (
-              <MenuItem key={option.label} value={option.label}>
-                {option.value}
-              </MenuItem>
-            ))}
-          </TextField>
+          <FormControl sx={{ minWidth: 300 }}>
+            <InputLabel id='demo-simple-select-label'>Lang</InputLabel>
+            <Select
+              labelId='demo-simple-select-label'
+              id='demo-simple-select'
+              value={language}
+              label='Age'
+              onChange={handleMenuChange}
+            >
+              <MenuItem value={language}>English</MenuItem>
+            </Select>
+          </FormControl>
         </ThemeProvider>
       </div>
     </div>
   );
-};
-Navbar.propTypes = {
-  category: PropTypes.string.isRequired,
-  setCategory: PropTypes.func.isRequired,
-  word: PropTypes.string.isRequired,
-  setWord: PropTypes.func.isRequired,
-  setMeanings: PropTypes.func.isRequired,
 };
