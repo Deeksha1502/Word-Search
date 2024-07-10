@@ -10,13 +10,6 @@ import FormControl from '@mui/material/FormControl';
 
 export const Navbar = ({ word, setWord }) => {
   const [language, setLanguage] = useState('English');
-  const darkTheme = createTheme({
-    palette: {
-      mode: 'dark',
-    },
-  });
-
-  
 
   const debouncedSetWord = useCallback(
     debounce((text) => {
@@ -31,37 +24,34 @@ export const Navbar = ({ word, setWord }) => {
     debouncedSetWord(text);
   };
 
-  const handleMenuChange = () =>{
-    setLanguage(language)
-  }
+  const handleMenuChange = () => {
+    setLanguage(language);
+  };
 
   return (
     <div className='navbar'>
       <span className='heading'>{word ? word : 'Search Word'}</span>
       <div className='inputs'>
-        <ThemeProvider theme={darkTheme}>
-          <CssBaseline />
-          <TextField
-            className='search'
-            label='Search a word'
-            id='standard-basic'
-            onChange={handleInput}
-          ></TextField>
-          {'   '}
+        <TextField
+          className='search'
+          label='Search a word'
+          id='standard-basic'
+          onChange={handleInput}
+        ></TextField>
+        {'   '}
 
-          <FormControl sx={{ minWidth: 300 }}>
-            <InputLabel id='demo-simple-select-label'>Lang</InputLabel>
-            <Select
-              labelId='demo-simple-select-label'
-              id='demo-simple-select'
-              value={language}
-              label='Age'
-              onChange={handleMenuChange}
-            >
-              <MenuItem value={language}>English</MenuItem>
-            </Select>
-          </FormControl>
-        </ThemeProvider>
+        <FormControl sx={{ minWidth: 300 }}>
+          <InputLabel id='demo-simple-select-label'>Lang</InputLabel>
+          <Select
+            labelId='demo-simple-select-label'
+            id='demo-simple-select'
+            value={language}
+            label='Age'
+            onChange={handleMenuChange}
+          >
+            <MenuItem value={language}>English</MenuItem>
+          </Select>
+        </FormControl>
       </div>
     </div>
   );
