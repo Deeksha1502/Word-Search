@@ -5,6 +5,7 @@ import { Container } from '@mui/material';
 import { Navbar } from './components/Header';
 import { Definitions } from './Definitions/Definitions';
 import { useDebounce } from './assets/utils/useDebounce';
+import Header1 from './images/header.jpg';
 
 export const App = () => {
   const [meanings, setMeanings] = useState([]);
@@ -38,22 +39,18 @@ export const App = () => {
   }, [debouncedWord]);
 
   return (
-    <>
-      <div className='App' style={{ height: '100vh' }}>
-        <div className='stickyNavbar'>Vocab Vault</div>
-        <Container
-          maxWidth='md'
-          style={{
-            height: '100vh',
-            justifyContent: 'space-evenly',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
+    <div>
+      {/* <div className='w-80 h-40'>
+        <img className='w-full h-96 lg:40 object-fit' src={Header1}></img>
+      </div> */}
+      <div className='flex items-center justify-center p-14'>
+        <div className='flex flex-col gap-9'>
+          <div className='text-3xl font-thin '>Vocab Vault</div>
+          <div className='text-xl font-bold ' >Look up a word! learn it forever</div>
           <Navbar word={word} setWord={setWord} setMeanings={setMeanings} />
-          {meanings && <Definitions word={word} meanings={meanings} wordNotFound={wordNotFound}  />}
-        </Container>
+          {meanings && <Definitions word={word} meanings={meanings} wordNotFound={wordNotFound} />}
+        </div>
       </div>
-    </>
+    </div>
   );
 };

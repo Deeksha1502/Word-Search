@@ -1,16 +1,10 @@
-import { debounce, TextField } from '@mui/material';
+import { debounce } from '@mui/material';
 import './Header.css';
-
 import { useCallback, useState } from 'react';
-import Select from '@mui/material/Select';
-
 import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 
 export const Navbar = ({ word, setWord }) => {
-  const [language, setLanguage] = useState('English');
-
   const debouncedSetWord = useCallback(
     debounce((text) => {
       setWord(text);
@@ -24,35 +18,29 @@ export const Navbar = ({ word, setWord }) => {
     debouncedSetWord(text);
   };
 
-  const handleMenuChange = () => {
-    setLanguage(language);
-  };
-
   return (
     <div className='header'>
-    
-   
-      <span className='heading'>{word ? word : 'Search Word'}</span>
+      <span className='heading'></span>
       <div className='inputs'>
-        <TextField
+        {/* <TextField
           className='search'
           label='Search a word'
           id='standard-basic'
           onChange={handleInput}
-        ></TextField>
+        ></TextField> */}
+
+        <input
+          className='border-1 w-full 
+            focus:outline-none outline-none p-2 border-r bg-gray-100 rounded-full
+            
+            text-gray-600'
+          onChange={handleInput} placeholder='Search a word...'
+        ></input>
+
         {'   '}
 
-        <FormControl sx={{ minWidth: 300 }}>
+        <FormControl>
           <InputLabel id='demo-simple-select-label'>Lang</InputLabel>
-          <Select
-            labelId='demo-simple-select-label'
-            id='demo-simple-select'
-            value={language}
-            label='Age'
-            onChange={handleMenuChange}
-          >
-            <MenuItem value={language}>English</MenuItem>
-          </Select>
         </FormControl>
       </div>
     </div>
