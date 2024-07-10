@@ -37,6 +37,7 @@ export const App = () => {
   return (
     <>
       <div className='App' style={{ height: '100vh' }}>
+      <div className='stickyNavbar'>Vocab Vault</div>
         <Container
           maxWidth='md'
           style={{
