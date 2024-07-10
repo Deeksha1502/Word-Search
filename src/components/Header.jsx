@@ -30,6 +30,7 @@ export const Navbar = ({ word, setWord }) => {
 
   return (
     <div className='header'>
+    
    
       <span className='heading'>{word ? word : 'Search Word'}</span>
       <div className='inputs'>
