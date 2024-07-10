@@ -2,7 +2,7 @@ import axios from 'axios';
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Container } from '@mui/material';
-import { Navbar } from './components/Navbar';
+import { Navbar } from './components/Header';
 import { Definitions } from './Definitions/Definitions';
 import { useDebounce } from './assets/utils/useDebounce';
 
