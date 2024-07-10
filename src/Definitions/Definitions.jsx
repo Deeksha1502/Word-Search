@@ -3,7 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 export const Definitions = ({ word, meanings, wordNotFound }) => {
   return (
-    <div className='meanings'>
+    <div className='border-2'>
+    
       {word === '' ? (
         <span className='subTitle'>Type a word to search</span>
       ) : wordNotFound ? (
@@ -12,11 +13,7 @@ export const Definitions = ({ word, meanings, wordNotFound }) => {
         meanings.map((data) =>
           data.meanings.map((item) =>
             item.definitions.map((def) => (
-              <div
-                key={uuidv4()}
-                className='firstMeaning'
-                style={{ backgroundColor: 'white', color: 'black' }}
-              >
+              <div key={uuidv4()} className='firstMeaning'>
                 <b>{def.definition}</b>
                 <hr style={{ backgroundColor: 'white', width: '100%' }} />
                 {def.example && (
