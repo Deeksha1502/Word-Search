@@ -36,7 +36,7 @@ export const App = () => {
 
   return (
     <>
-      <div className='App' style={{ height: '100vh', backgroundColor: '#282c34', color: 'white' }}>
+      <div className='App' style={{ height: '100vh' }}>
         <Container
           maxWidth='md'
           style={{
