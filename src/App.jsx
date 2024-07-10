@@ -1,5 +1,4 @@
 import axios from 'axios';
-import './App.css';
 import { useEffect, useState } from 'react';
 import { Container } from '@mui/material';
 import { Navbar } from './components/Header';
@@ -45,8 +44,8 @@ export const App = () => {
       </div> */}
       <div className='flex items-center justify-center p-14'>
         <div className='flex flex-col gap-9'>
-          <div className='text-3xl font-thin '>Vocab Vault</div>
-          <div className='text-xl font-bold ' >Look up a word! learn it forever</div>
+          <div className='text-4xl font-bold text-gray-800 mb-4'>Vocab Vault</div>
+          <div className='text-lg font-semibold text-gray-600 mb-6' >Look up a word! learn it forever</div>
           <Navbar word={word} setWord={setWord} setMeanings={setMeanings} />
           {meanings && <Definitions word={word} meanings={meanings} wordNotFound={wordNotFound} />}
         </div>

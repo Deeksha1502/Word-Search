@@ -1,10 +1,12 @@
 import { debounce } from '@mui/material';
-import './Header.css';
+
 import { useCallback, useState } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 
 export const Navbar = ({ word, setWord }) => {
+
+
   const debouncedSetWord = useCallback(
     debounce((text) => {
       setWord(text);
