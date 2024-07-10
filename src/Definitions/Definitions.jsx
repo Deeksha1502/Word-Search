@@ -1,14 +1,13 @@
 import './Definitions.css';
 import { v4 as uuidv4 } from 'uuid';
 
-export const Definitions = ({ word, meanings }) => {
-  console.log('this is audio', meanings[0]?.phonetics[0]?.audio);
-  console.log('this is meanings', meanings);
-
+export const Definitions = ({ word, meanings, wordNotFound }) => {
   return (
     <div className='meanings'>
       {word === '' ? (
         <span className='subTitle'>Type a word to search</span>
+      ) : wordNotFound ? (
+        <span className='subTitle'>Word does not exist</span>
       ) : (
         meanings.map((data) =>
           data.meanings.map((item) =>

@@ -10,7 +10,8 @@ export const App = () => {
   const [meanings, setMeanings] = useState([]);
 
   const [word, setWord] = useState('');
-  const debouncedWord = useDebounce(word, 200);
+  const [wordNotFound, setWordNotFound] = useState(false);
+  const debouncedWord = useDebounce(word, 500);
 
   const dictionaryApi = async () => {
     const category = 'en';
@@ -18,15 +19,17 @@ export const App = () => {
       if (debouncedWord) {
         const API_ENDPOINT = `https://api.dictionaryapi.dev/api/v2/entries/${category}/${word}`;
         const { data } = await axios.get(API_ENDPOINT);
-        console.log(data);
 
         setMeanings(data);
+        setWordNotFound(false);
       } else {
         setMeanings([]);
+        setWordNotFound(false);
       }
     } catch (error) {
       console.log(error);
       setMeanings([]);
+      setWordNotFound(true);
     }
   };
 
@@ -37,7 +40,7 @@ export const App = () => {
   return (
     <>
       <div className='App' style={{ height: '100vh' }}>
-      <div className='stickyNavbar'>Vocab Vault</div>
+        <div className='stickyNavbar'>Vocab Vault</div>
         <Container
           maxWidth='md'
           style={{
@@ -48,7 +51,7 @@ export const App = () => {
           }}
         >
           <Navbar word={word} setWord={setWord} setMeanings={setMeanings} />
-          {meanings && <Definitions word={word} meanings={meanings} />}
+          {meanings && <Definitions word={word} meanings={meanings} wordNotFound={wordNotFound}  />}
         </Container>
       </div>
     </>
