@@ -22,14 +22,9 @@ export const Navbar = ({ word, setWord }) => {
 
   return (
     <div className='header'>
-      <span className='heading'></span>
+      
       <div className='inputs'>
-        {/* <TextField
-          className='search'
-          label='Search a word'
-          id='standard-basic'
-          onChange={handleInput}
-        ></TextField> */}
+       
 
         <input
           className='border-1 w-full 
