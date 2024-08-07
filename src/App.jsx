@@ -1,10 +1,12 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Container } from '@mui/material';
 import { Navbar } from './components/Header';
 import { Definitions } from './Definitions/Definitions';
 import { useDebounce } from './assets/utils/useDebounce';
 import Header1 from './images/header.jpg';
+import { DarkModeContext } from './DarkMode/DarkModeContext';
+import { DarkModeToggle } from './DarkMode/DarkModeToggle';
 
 export const App = () => {
   const [meanings, setMeanings] = useState([]);
@@ -12,6 +14,7 @@ export const App = () => {
   const [word, setWord] = useState('');
   const [wordNotFound, setWordNotFound] = useState(false);
   const debouncedWord = useDebounce(word, 500);
+  const { darkMode } = useContext(DarkModeContext);
 
   const dictionaryApi = async () => {
     const category = 'en';
@@ -38,16 +41,19 @@ export const App = () => {
   }, [debouncedWord]);
 
   return (
-    <div>
-      {/* <div className='w-80 h-40'>
-        <img className='w-full h-96 lg:40 object-fit' src={Header1}></img>
-      </div> */}
-      <div className='flex items-center justify-center p-14'>
-        <div className='flex flex-col gap-9'>
-          <div className='text-4xl font-bold text-gray-800 mb-4'>Vocab Vault</div>
-          <div className='text-lg font-semibold text-gray-600 mb-6' >Look up a word! learn it forever</div>
-          <Navbar word={word} setWord={setWord} setMeanings={setMeanings} />
-          {meanings && <Definitions word={word} meanings={meanings} wordNotFound={wordNotFound} />}
+    <div className={`${darkMode ? 'dark' : ''}`}>
+      <div className='bg-white dark:bg-gray-800 min-h-screen'>
+        <div className='flex items-center justify-center p-14'>
+          <div className='flex flex-col gap-9'>
+            <div className='text-4xl font-bold text-gray-800 mb-4 dark:text-white'><span><DarkModeToggle/></span>Vocab Vault</div>
+            <div className='text-2xl font-semibold text-gray-600 mb-6 dark:text-gray-300'>
+              Look up a word! learn it forever
+            </div>
+            <Navbar word={word} setWord={setWord} setMeanings={setMeanings} />
+            {meanings && (
+              <Definitions word={word} meanings={meanings} wordNotFound={wordNotFound} />
+            )}
+          </div>
         </div>
       </div>
     </div>
